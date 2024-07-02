@@ -31,8 +31,14 @@ export default function App() {
     defaultValue: "light",
     getInitialValueInEffect: true,
   });
-  const toggleColorScheme = (value) =>
+  const toggleColorScheme = (value) => {
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
+    if (window.appier) {
+      window.appier("identify", {
+        color_preference: colorScheme === "dark" ? "light" : "dark",
+      });
+    }
+  };
 
   useHotkeys([["mod+J", () => toggleColorScheme()]]);
 
